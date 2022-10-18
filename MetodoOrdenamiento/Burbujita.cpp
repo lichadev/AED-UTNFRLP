@@ -1,5 +1,7 @@
 #include <iostream>
 
+// Implementacion del metodo trackeando si ya esta ordenado para poder optimizarlo y avisando cuando se trackeo esta optimizacion atraves de pantalla
+
 int const TAM = 4;
 
 void swap(int &x, int &y){
