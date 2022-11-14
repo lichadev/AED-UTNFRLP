@@ -1,48 +1,52 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "lista.h"
 
-void CrearLlavero(Key *keyExample){
-  printf("Ingrese el codigo de la llave:");
-  scanf("%i", &keyExample->key);
-  printf("Ingrese el nombre del llavero:");
-  scanf(" %s", &keyExample->keyManName);
+
+void AñadirNodoInicio(Lista *lista, int key, char* keyMan){
+  // Creo un nodo
+  Nodo *nodoNuevo;
+  nodoNuevo = malloc(sizeof(Nodo));
+  nodoNuevo->keyExample.key = key;
+  strcpy(nodoNuevo->keyExample.keyManName, keyMan);
+
+
+  // Apunto a la cabeza de la lista
+  nodoNuevo->nodo_siguiente = lista->cabeza;
+
+  // Actualizo la cabeza de la lista
+  lista->cabeza = nodoNuevo;
 }
 
-void IncializarLista(Lista *nodo_raiz){
-  
-  // incializo mi lista, con el nodo siguiente al raiz = NULL, por ser el primero
-  nodo_raiz->nodo_siguiente = NULL;
-  CrearLlavero(&(nodo_raiz->keyExample));
+void AñadirNodoFinal(Lista *lista, int key, char* keyMan){
+  Nodo *nodoNuevo;
+  nodoNuevo = malloc(sizeof(Nodo));
 
-}
+  // si literalmente no hay nadie
+  if(lista->cabeza == NULL)
+  {
+    lista->cabeza = nodoNuevo;
+  } else {
 
-void AñadirNodo(Lista *nodo_actual){
+    // si hay algo
+    Nodo *aux = lista->cabeza;
+    while (aux->nodo_siguiente)
+    {
+      aux = aux->nodo_siguiente;
+    }
 
-  // Creo un nodo auxilar para recorrer la lista
-  Lista *nodoActualCopy = nodo_actual;
-  nodoActualCopy = malloc(sizeof(nodo_actual));
-
-  // Buscando al ultimo nodo de la lista
-  while(nodoActualCopy->nodo_siguiente != NULL){
-    nodoActualCopy = nodoActualCopy->nodo_siguiente;
+    aux->nodo_siguiente = nodoNuevo;
   }
-
-  // Esta en el ultimo nodo de la lista
-  nodo_actual=nodoActualCopy->nodo_siguiente;
-  free(nodoActualCopy);
-  CrearLlavero(&(nodo_actual->keyExample));
-  nodo_actual->nodo_siguiente = NULL;
-
 }
 
-void RecorrerLista(Lista *nodo_actual){
-  
-  // Creo un nodo auxilar para recorrer la lista
-  Lista *nodoActualCopy = nodo_actual;
-  nodoActualCopy = malloc(sizeof(nodo_actual));
+void RecorrerLista(Nodo *nodo_actual){
 
-  while(nodoActualCopy->nodo_siguiente != NULL){
+  // Creo un nodo auxilar para recorrer la lista
+  Nodo *nodoActualCopy;
+  nodoActualCopy = nodo_actual;
+
+  while(nodoActualCopy != NULL){
     printf("<Llavero: %i>\n<Nombre llavero: %s>\n", nodoActualCopy->keyExample.key, nodoActualCopy->keyExample.keyManName);
     nodoActualCopy = nodoActualCopy->nodo_siguiente;
   }
@@ -50,5 +54,60 @@ void RecorrerLista(Lista *nodo_actual){
   free(nodoActualCopy);
 }
 
-void BuscarLlavero(Lista *nodo_actual);
-void BorrarUltimo(Lista *nodo_actual);
+void EliminarPrimero(Lista *lista){
+  if(lista->cabeza){
+    // guardo quien borro
+    Nodo *eliminar = lista->cabeza;
+    // enlazo el primero con el siguiente
+    lista->cabeza = lista->cabeza->nodo_siguiente;
+    // boleo el nodo
+    free(lista);
+  }
+}
+
+void EliminarUltimo(Lista *lista){
+  if(lista->cabeza){
+    /*
+      Nos tenemos que tener en el penultimo para eliminar al ultimo elemento.
+      Si eliminas derecho el ultimo nodo, te genera un error de Segmentacion
+      porque el nodo anterior estaba apuntado a ese y ahora ya no esta lo que apunta
+      por lo tanto tenes que ir al penultimo y borrar a su siguiente.
+    */
+
+    Nodo *aux = lista->cabeza;
+    while(aux->nodo_siguiente->nodo_siguiente)
+      aux = aux->nodo_siguiente;
+
+    Nodo *eliminar = aux->nodo_siguiente;
+    aux->nodo_siguiente = NULL;
+    free(eliminar);
+  }
+}
+
+
+int cantidad = 3;
+
+int valor(){
+  printf("%i", cantidad);
+  return cantidad;
+}
+
+void Cantidad(){
+  cantidad = cantidad - 1;
+}
+
+void vaciarValor(){
+  if(valor() != 0){
+    Cantidad();
+    vaciarValor();
+  }
+}
+
+int main (){
+
+  vaciarValor();
+
+
+
+  return 0;
+}
