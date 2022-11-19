@@ -4,3 +4,5 @@
 # Ignora la carpeta .vscode
 .vscode
 .fleet
+.gitignore
+a

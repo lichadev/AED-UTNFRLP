@@ -3,7 +3,6 @@
 #include <string.h>
 #include "lista.h"
 
-
 void AñadirNodoInicio(Lista *lista, int key, char* keyMan){
   // Creo un nodo
   Nodo *nodoNuevo;
