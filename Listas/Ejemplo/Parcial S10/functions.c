@@ -16,7 +16,6 @@ void usandoCola(Cola *depositos_nuevos, paquete_item *paquete){
   }
 }
 
-
 /*Implementando funciones para Paquete*/
 void paqueteCreator(paquete_item *paquete){
 
@@ -79,14 +78,12 @@ Nodo* CreateNodo(paquete_item *paquete){
   paqueteCreator(&nodo->paquete);
   return nodo;
 }
-
 Nodo *CreateNodoLista(paquete_item *paquete){
   Nodo *nodo = malloc(sizeof(Nodo));
   nodo->siguiente = NULL;
   paqueteAsignator(nodo, paquete);
   return nodo;
 }
-
 void DestroyNode(Nodo *nodo){
   Nodo *borrar = nodo;
   nodo = nodo->siguiente;
@@ -143,10 +140,11 @@ void BorrarUltimo(Lista *lista){
     free(borrar);
   }
 }
-void BorrarPrimero(Lista *lista){
+paquete_item BorrarPrimero(Lista *lista){
   if(lista->cabeza){
     Nodo *borrar = lista->cabeza;
     lista->cabeza = lista->cabeza->siguiente;
+    return borrar->paquete;
     free(borrar);
   }
 }
@@ -227,4 +225,43 @@ paquete_item Consultar(Cola *cola){
   if(cola->primero != NULL) {
     return cola->primero->paquete;
   } 
+}
+
+/*Implementando funciones Pila*/
+void Apilar(Pila *pila, paquete_item *paquete){
+  Nodo *nuevoNodo = CreateNodoLista(paquete);
+  Nodo *recorrer = pila->raiz;
+  if(pila->raiz != NULL){
+    while(recorrer->siguiente != NULL){
+      recorrer = recorrer->siguiente;
+    }
+    recorrer->siguiente = nuevoNodo;
+  } else {
+    recorrer = nuevoNodo;
+  }
+}
+paquete_item Desapilar(Pila *pila){
+  if(pila->raiz != NULL){
+    Nodo *recorrer = pila->raiz;
+
+    while(recorrer->siguiente->siguiente != NULL){
+      recorrer = recorrer->siguiente;
+    }
+    Nodo *borrar = recorrer->siguiente;
+    paquete_item toReturn = borrar->paquete;
+    borrar->siguiente = NULL;
+    
+    free(borrar);
+    return toReturn;
+  } 
+}
+Pila* CreatePila(){
+  Pila* pila = malloc(sizeof(Pila));
+  pila->raiz = NULL;
+  return pila;
+}
+void DestroyPila(Pila *pila){
+  while(pila->raiz != NULL){
+    paquete_item paquete_returned = Desapilar(pila);
+  }
 }

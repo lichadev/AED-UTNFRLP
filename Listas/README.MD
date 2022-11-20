@@ -13,3 +13,5 @@
 
 # Cola
 
+## Cola enlazada Simple
+

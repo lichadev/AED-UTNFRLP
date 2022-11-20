@@ -45,20 +45,34 @@ int main(){
   }
 
   int flag = 1;
-  while(flag){
+  while(flag == 1){
     printf("\nBusqueda de paquete\n");
     printf("Quiere continuar:");
     scanf("%i", &flag);
 
-    int dni_destinario;
+    int dni_destinario = 0;
     printf("Ingrese el DNI del destinario a buscar su paquete:");
     scanf("%i", &dni_destinario);
 
     paquete_item paquete_deposito = BuscarListaPaquete(lista_depositos, dni_destinario);
     
     printf("DNI DEL DESTINARIO: %i", paquete_deposito.dni_Destinario);
-    printf("Nombre del despachante: %s", paquete_deposito.despachante);
+    printf("\nNombre del despachante: %s", paquete_deposito.despachante);
   }
+
+  Pila *pila = CreatePila();
+  /*TODO Añadir Precio por envio a los struct*/
+  int precioPorEnvio = 1500;
+  float recaudadoTotal = 0;
+
+  while(lista_depositos->cabeza != NULL){
+    paquete_item paquete = BorrarPrimero(lista_depositos);
+    /*TODO Aca se podria consultar el tiempo que llevan en el deposito*/
+    recaudadoTotal = precioPorEnvio * paquete.porcentajeImpuesto/100.0;
+    Apilar(pila, &paquete);
+  }
+
+  
 
   return 0;
 }
