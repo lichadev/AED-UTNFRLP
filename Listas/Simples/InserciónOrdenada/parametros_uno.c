@@ -3,8 +3,8 @@
 #include <string.h>
 
 // ----------------------------------------------------------------
-// Cargar un struct de alumnos en una pila
-// y armar una lista con las mejores notas ordenadas y juntos por alumno
+// Cargar un struct con números en una pila
+// Arma una lista de manera ordenada con lo que desapila
 // ----------------------------------------------------------------
 
 typedef struct Nodo{
