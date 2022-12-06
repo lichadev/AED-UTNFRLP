@@ -70,7 +70,6 @@ void paqueteAsignator(Nodo *nodo, paquete_item *paqueteAsignable){
   strcpy(nodo->paquete.destinario, paqueteAsignable->destinario);
 }
 
-
 /*Implementando funciones para Nodo*/
 Nodo* CreateNodo(paquete_item *paquete){
   Nodo *nodo = malloc(sizeof(Nodo));

@@ -1,5 +1,6 @@
 #include "functions.c"
-
+// en el archivo include ""
+// en nativo de c - built-in <>
 /*
   Nota: No hace falta el stdbool.h pero si se lo sacan tenes que hacer cambios por integers.
   (lo hice con bool pq estoy acostumbrado a otro paradigma con mas datos primitivos que int,float,char,double)
