@@ -31,11 +31,11 @@ int main(){
 
     apilar(&pila_alumno, numero);
 
-    printf("Ingrese si quiere continuar:\n1-Si\nOtro-No\n");
+    printf("Ingrese si quiere continuar:\n1-Si|Otro-No\n");
     scanf("%d", &repetir);
   }
 
-  printf("Lista ingresada por el usuario:\n");
+  printf("Lista ingresada por el usuario:");
   imprimir(&pila_alumno);
 
 
